@@ -14,13 +14,10 @@ public class Booking {
     private Long id;
 
 
-    @OneToMany(mappedBy = "customer")
+    @OneToMany(mappedBy = "customer",cascade = CascadeType.ALL)
     private List<Booking> bookings ;
 
-    @ManyToMany
-    @JoinTable(name = "customer_agency",
-            joinColumns = @JoinColumn(name = "customer_id"),
-            inverseJoinColumns = @JoinColumn(name = "agency_id"))
+    @ManyToMany(cascade = CascadeType.ALL)
     private List<Agency> agencies ;
 
 

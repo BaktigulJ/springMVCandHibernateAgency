@@ -2,52 +2,63 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Main page</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <title>All Agency</title>
+    <style>table,
+    td {
+        border: 1px solid #333333FF;
+        margin-top: 200px;
+        margin-left: auto;
+        margin-right: auto;
+        font-size: 25px;
+    }
+
+    tfoot {
+        background-color: #333333FF;
+        color: #fff;
+    }
+    </style>
     <style>
-        .card-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
+        table, th, td {
+            border: 1px solid black;
+            padding: 3px;
         }
-
-        .card {
-            margin: 10px;
-        }
-
     </style>
 </head>
 <body>
-<center>
-    <div class="card-container">
-        <div class="card" style="width: 18rem;"
-             th:each="agency:${getAllAgencies}">
+<table class="table table-bordered">
+    <thead class="table-dark">
+    <tr>
+        <th scope="colgroup">Id</th>
+        <th scope="col">name</th>
+        <th scope="col">country</th>
+        <th scope="col">phone</th>
+        <th scope="col">email</th>
+    </tr>
+    </thead>
+    <tbody class="table-success">
+    <tr th:each="agency: ${getAllAgencies}">
+        <td th:text="${agency.id}"></td>
+        <td th:text="${agency.name}"></td>
+        <td th:text="${agency.country}"></td>
+        <td th:text="${agency.phoneNumber}"></td>
+        <td th:text="${agency.email}"></td>
+        <td>
+            <a th:href="@{/update/{agencyId}(agencyId=${agency.getId()})}">
+                <button>Update</button>
+            </a>
+        </td>
 
-            <div class="card-body">
-                <h5 th:text="${agency.getName()}" class="card-title">Agency name</h5>
-                <h4 th:text="${agency.getCountry()}" class="card-text">agency Country/</h4>
-                <h4 th:text="${agency.getPhoneNumber()}" class="card-text">agency phone number/</h4>
-                <h4 th:text="${agency.getEmail()}" class="card-text">agency email/</h4>
-                <a href="#" class="btn btn-primary">Go somewhere</a>
-                <form th:method="DELETE" th:action="@{/agency/delete/{id} (id=${agency.getId()})}">
-                    <input type="submit" th:value="Delete">
-                </form>
-                <a th:href="@{agencies/create/{agencyId}(agencyId=${agency.getId()})}">
-                    <button type="submit" class="btn btn-outline-info">Add new backend</button>
-                </a>
-                <a th:href="@{/agencies/{agencyId}(agencyId=${agency.getId()})}">
-                    <button type="submit" class="btn btn-secondary" th:text="${'Get all agency.name('+agency.getName()+')'}"></button>
-                </a>
-            </div>
-        </div>
-    </div>
-
-    <a class="btn btn-primary" href="/agency/new" role="button">Create New Agency</a>
-</center>
-
+        <td>
+            <a th:href="@{/delete/{agencyId}(agencyId=${agency.getId()})}"
+               onclick="return confirm('Are you sure to delete this company?');">
+                <button>Delete</button>
+            </a>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<br><br><br><br>
+<input style="display: block; margin: auto; font-size: 50px" type="button" value="Add company"
+       onclick="window.location.href = 'new'">>
 </body>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
 </html>

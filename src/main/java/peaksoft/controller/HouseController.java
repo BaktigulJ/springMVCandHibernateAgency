@@ -1,4 +1,4 @@
-package peaksoft.Controller;
+package peaksoft.controller;
 
 public class HouseController {
 

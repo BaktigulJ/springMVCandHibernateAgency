@@ -2,12 +2,16 @@ package peaksoft.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
-
 import java.util.*;
 
 @Entity
-@Data
-@Table(name = "agency")
+@Table(name = "agencies")
+@AllArgsConstructor
+@NoArgsConstructor
+@Getter
+@Setter
+@Builder
+
 public class Agency {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -16,12 +20,11 @@ public class Agency {
     private String country;
     private Long phoneNumber;
     private String email;
-    @Column(length = 2000000)
 
-    @OneToMany(mappedBy = "agency")
-    private List<House> houses ;
+    @OneToMany(mappedBy = "agency",cascade = CascadeType.ALL)
+    private List<House> houses;
 
-    @ManyToMany(mappedBy = "agencies")
-    private List<Customer> customers ;
+    @ManyToMany(mappedBy = "agencies",cascade = CascadeType.ALL)
+    private List<Customer> customers;
 
 }

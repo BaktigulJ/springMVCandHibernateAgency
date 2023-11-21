@@ -1,5 +1,6 @@
 package peaksoft.conf;
 
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -44,4 +45,3 @@ public class WebAppConf implements WebMvcConfigurer {
         viewResolverRegistry.viewResolver(resolver);
     }
 }
-

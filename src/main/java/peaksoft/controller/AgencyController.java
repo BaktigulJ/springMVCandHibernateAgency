@@ -1,4 +1,4 @@
-package peaksoft.Controller;
+package peaksoft.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -37,6 +37,7 @@ public class AgencyController {
         model.addAttribute("updateAgencies", agencyService.getAgencyById(agencyId));
         return "agency/updateAgency";
     }
+
 
     @PostMapping("/replace/{backendId}")
     public String updateAgencies(@ModelAttribute Agency agency, @PathVariable Long agencyId) {

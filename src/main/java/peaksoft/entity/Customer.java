@@ -6,7 +6,6 @@ import lombok.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "customer")
 @Data
 @Setter
 @Getter
@@ -25,12 +24,10 @@ public class Customer {
     private Date localDate;
     private Date dateOfBirth;
 
-    @OneToOne
-    @JoinColumn(name = "house_id")
+    @OneToOne(cascade = CascadeType.ALL)
     private House house;
 
-    @ManyToOne
-    @JoinColumn(name = "customer_id")
+    @ManyToOne(cascade = CascadeType.ALL)
     private Customer customer;
 
 

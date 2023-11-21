@@ -1,10 +1,8 @@
 package peaksoft.conf;
 
-
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
-import lombok.RequiredArgsConstructor;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -21,18 +19,18 @@ import javax.sql.DataSource;
 import java.util.Objects;
 import java.util.Properties;
 
-
-
 @Configuration
-@PropertySource("classpath:sdfgh.properties")
+@PropertySource("classpath:application.properties")
 @EnableTransactionManagement
-@RequiredArgsConstructor
 @ComponentScan(basePackages = "peaksoft")
 public class HibernateUtil {
 
-
+    @Autowired
     private final Environment environment;
 
+    public HibernateUtil(Environment environment) {
+        this.environment = environment;
+    }
 
     @Bean
     public DataSource getDataSource() {
@@ -62,7 +60,7 @@ public class HibernateUtil {
         LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
         entityManagerFactoryBean.setDataSource(dataSource);
         entityManagerFactoryBean.setJpaVendorAdapter(jpaVendorAdapter);
-        entityManagerFactoryBean.setPackagesToScan("peaksoft");
+        entityManagerFactoryBean.setPackagesToScan(environment.getProperty("package.toScan"));
         entityManagerFactoryBean.setJpaProperties(getHibernateProperties());
         entityManagerFactoryBean.afterPropertiesSet();
         return entityManagerFactoryBean.getObject();

@@ -5,7 +5,7 @@ import lombok.*;
 
 @Entity
 @Data
-@Table(name = "house")
+@Table(name = "houses")
 public class House {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -18,11 +18,10 @@ public class House {
     private String description;
     private String isBooked;
 
-    @ManyToOne
-    @JoinColumn(name = "agency_id")
+    @ManyToOne(cascade = CascadeType.ALL)
     private Agency agency;
 
-    @OneToOne(mappedBy = "house")
+    @OneToOne(mappedBy = "house",cascade = CascadeType.ALL)
     private Booking booking;
 
 }
